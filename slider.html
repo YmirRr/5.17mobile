@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>Document</title>
+	<style>
+		html, body{
+			width: 100%;
+			height: 100%;
+		}
+		body{
+			margin: 0;
+		}
+		.box{
+			width: 100%;
+			height: 300px;
+			overflow: hidden;
+			position:relative;
+		}
+		ul{
+			margin: 0;
+			padding: 0;
+			width: 400%;
+			list-style: none;
+			position: absolute;
+		}
+		ul li{
+			float:left;
+			width: 25%;
+			height: 300px;
+		}
+		.box li:nth-child(1){
+			background: red;
+		}
+		.box li:nth-child(2){
+			background: yellow;
+		}
+		.box li:nth-child(3){
+			background: blue;
+		}
+		.box li:nth-child(4){
+			background: pink;
+		}
+	</style>
+</head>
+<body>
+	<div id="box" class="box">
+		<ul class="list" id="list">
+				<li>abc1</li>
+				<li>abc2</li>
+				<li>abc3</li>
+				<li>abc4</li>
+		</ul>
+	</div>
+	<script>
+		var list = document.querySelector("#list");
+		console.log(list)
+		list.addEventListener("touchstart", function(e){
+			console.log("touchstart")
+			e.preventDefault();
+			var ex = e.changedTouches[0].pageX;
+			var left = list.offsetLeft;
+			list.addEventListener("touchmove", function(e){
+				console.log("touchmove")
+				var dis = e.changedTouches[0].pageX - ex;
+				list.style.left = (left+dis)+"px";
+			})
+			list.addEventListener("touchend", function(){
+				console.log("touchend")
+				var n = Math.round(list.offsetLeft/innerWidth);
+				list.style.left = n*innerWidth+"px";
+			})
+		})
+	</script>
+</body>
+</html>
